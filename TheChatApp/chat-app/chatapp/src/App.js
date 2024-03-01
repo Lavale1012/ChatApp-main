@@ -19,6 +19,8 @@ function App() {
   };
   const newRoom = () => {
     setShowChat(false);
+    setUsername("");
+    setRoom("");
   };
 
   return (

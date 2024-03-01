@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-
+import React, { useRef } from "react";
+import { GrGallery } from "react-icons/gr";
 const FileInputButton = ({ onFileSelect, selectedFile }) => {
   const fileInputRef = useRef(null);
 
@@ -17,9 +17,9 @@ const FileInputButton = ({ onFileSelect, selectedFile }) => {
       />
       <button
         onClick={handleButtonClick}
-        className="px-4 py-2 mx-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
+        className="  p-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
       >
-        {selectedFile ? "Change Photo" : "Send Photo"}
+        {/* {selectedFile ? "Change Photo" : "Send Photo"} */} <GrGallery />
       </button>
     </>
   );
