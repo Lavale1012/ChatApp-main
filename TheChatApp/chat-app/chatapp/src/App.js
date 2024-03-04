@@ -32,7 +32,7 @@ function App() {
       <div className="App w-screen min-h-screen  dark:bg-slate-700 text-gray-800 font-sans grid place-items-center transition duration-300">
         {!showChat ? (
           <div className="joinChatContainer flex flex-col text-center   mb-44">
-            <h3 className="text-3xl mb-4 dark:text-white transition duration-300 ">
+            <h3 className="animate-bounce text-3xl mb-4 dark:text-white transition duration-300 ">
               Quick Chat
             </h3>
             <input
