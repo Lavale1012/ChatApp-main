@@ -52,7 +52,7 @@ function Chat({ socket, username, room, newRoom }) {
   }, [socket]);
 
   return (
-    <div className="flex flex-col  bg-gray-100   lg:w-[70%] sm:w-[80%] h-[35rem] dark:bg-black rounded-xl mb-36 resize-none transition duration-300 ">
+    <div className="flex flex-col  bg-gray-100   lg:w-[70%] max-w-[90%] h-[35rem] dark:bg-black rounded-xl mb-36 resize-none transition duration-300 ">
       <div className="chat-header bg-gray-200 dark:bg-gray-900 p-4 text-white font-bold flex items-center justify-between rounded-t-xl transition duration-300">
         <p className="text-gray-400 dark:text-white transition duration-300">{`Room: ${room}`}</p>
         <button
@@ -103,7 +103,7 @@ function Chat({ socket, username, room, newRoom }) {
           placeholder="Hey..."
           onChange={(event) => setCurrentMessage(event.target.value)}
           onKeyPress={(event) => event.key === "Enter" && sendMessage()}
-          className="  flex-1   min-w-0 p-2 border-none dark:text-white rounded-md dark:bg-slate-700 outline-none transition duration-300"
+          className="  flex-1   min-w-10 p-2 border-none dark:text-white rounded-md dark:bg-slate-700 outline-none transition duration-300"
         />
         <div className="flex items-center gap-2">
           <FileInputButton

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { LuMoonStar } from "react-icons/lu";
+import { MdOutlineWbSunny } from "react-icons/md";
 
 const DarkModeToggle = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -24,9 +26,9 @@ const DarkModeToggle = () => {
   return (
     <button
       onClick={toggleDarkMode}
-      className="p-2 dark:bg-gray-900 bg-gray-200 hover:bg-gray-300 rounded dark:text-white dark:hover:bg-gray-800 transition duration-300"
+      className="p-3 dark:bg-gray-900 bg-gray-200 hover:bg-gray-300 rounded-md dark:text-white dark:hover:bg-gray-800 transition duration-300"
     >
-      {darkMode ? "Light Mode" : "Dark Mode"}
+      {darkMode ? <MdOutlineWbSunny /> : <LuMoonStar />}
     </button>
   );
 };
