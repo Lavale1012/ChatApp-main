@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
 
 const SpeechToText = ({ onTranscript }) => {
@@ -7,44 +7,47 @@ const SpeechToText = ({ onTranscript }) => {
     window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new SpeechRecognition();
 
-  recognition.continuous = true; // Consider setting this to false if you want it to stop after a single utterance
+  recognition.continuous = false;
   recognition.interimResults = true;
 
-  const handleStop = useCallback(() => {
-    recognition.stop();
-    setIsListening(false);
-  }, [recognition]);
-
-  const handleStart = useCallback(() => {
-    recognition.start();
+  // Event handler when recognition starts
+  recognition.onstart = () => {
+    console.log("Speech recognition started");
     setIsListening(true);
-  }, [recognition]);
+  };
+
+  // Event handler when recognition ends
+  recognition.onend = () => {
+    console.log("Speech recognition ended");
+    setIsListening(false);
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = Array.from(event.results)
+      .map((result) => result[0])
+      .map((result) => result.transcript)
+      .join("");
+    onTranscript(transcript);
+  };
+
+  recognition.onerror = (event) => {
+    console.error("Recognition error:", event.error);
+  };
 
   const toggleListening = () => {
     if (isListening) {
-      handleStop();
+      recognition.stop(); // This will eventually trigger onend
     } else {
-      handleStart();
+      recognition.start(); // This will eventually trigger onstart
     }
   };
 
+  // Make sure to clean up on component unmount
   useEffect(() => {
-    recognition.onresult = (event) => {
-      const transcript = Array.from(event.results)
-        .map((result) => result[0])
-        .map((result) => result.transcript)
-        .join("");
-      onTranscript(transcript);
-    };
-
-    recognition.onend = () => {
-      if (isListening) handleStart(); // Re-start recognition if it stops unexpectedly and isListening is true
-    };
-
     return () => {
-      recognition.stop(); // Ensure the recognition stops when the component unmounts
+      recognition.stop(); // Ensure recognition stops when component unmounts
     };
-  }, [recognition, onTranscript, isListening, handleStart]);
+  }, []);
 
   return (
     <button
