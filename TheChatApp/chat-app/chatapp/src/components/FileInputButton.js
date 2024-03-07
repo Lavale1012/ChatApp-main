@@ -17,9 +17,9 @@ const FileInputButton = ({ onFileSelect, selectedFile }) => {
       />
       <button
         onClick={handleButtonClick}
-        className="  p-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
+        className="  p-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300 active:bg-blue-500"
       >
-        {/* {selectedFile ? "Change Photo" : "Send Photo"} */} <GrGallery />
+        <GrGallery />
       </button>
     </>
   );

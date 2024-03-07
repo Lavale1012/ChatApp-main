@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import FileInputButton from "./FileInputButton";
+import SpeechToText from "./SpeechToText"; // Adjust the path as necessary
+
 import { MdDelete } from "react-icons/md";
 import { IoSend } from "react-icons/io5";
+import { FaMicrophone } from "react-icons/fa";
 
 function Chat({ socket, username, room, newRoom }) {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -56,7 +59,7 @@ function Chat({ socket, username, room, newRoom }) {
       <div className="chat-header bg-gray-200 dark:bg-gray-900 p-4 text-white font-bold flex items-center justify-between rounded-t-xl transition duration-300">
         <p className="text-gray-400 dark:text-white transition duration-300">{`Room: ${room}`}</p>
         <button
-          className="bg-green-500 p-2 rounded-md hover:bg-green-600 transition duration-300"
+          className="bg-green-500 p-2 rounded-md hover:bg-green-600 transition duration-300 active:bg-green-400"
           onClick={newRoom}
         >
           <h3>New Room</h3>
@@ -105,14 +108,22 @@ function Chat({ socket, username, room, newRoom }) {
           onKeyPress={(event) => event.key === "Enter" && sendMessage()}
           className="  flex-1   min-w-10 p-2 border-none dark:text-white rounded-md dark:bg-slate-700 outline-none transition duration-300"
         />
+
+        <SpeechToText
+          onTranscript={(transcript) =>
+            setCurrentMessage(currentMessage + transcript)
+          }
+        />
+
         <div className="flex items-center gap-2">
-          <FileInputButton
-            onFileSelect={handleFileChange}
-            selectedFile={selectedFile}
-          />
-          {selectedFile && (
+          {!selectedFile ? (
+            <FileInputButton
+              onFileSelect={handleFileChange}
+              selectedFile={selectedFile}
+            />
+          ) : (
             <button
-              className="p-3 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300"
+              className="p-3 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300 active:bg-red-500"
               onClick={clearFileButton}
             >
               <MdDelete />
@@ -121,7 +132,7 @@ function Chat({ socket, username, room, newRoom }) {
         </div>
         <button
           onClick={sendMessage}
-          className=" bg-green-500 text-white p-3 rounded-md hover:bg-green-700 transition duration-300"
+          className=" bg-green-500 text-white p-3 rounded-md hover:bg-green-600 transition duration-300 active:bg-green-400"
         >
           <IoSend />
         </button>

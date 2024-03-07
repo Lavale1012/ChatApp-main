@@ -53,7 +53,7 @@ function App() {
             />
             <button
               onClick={joinRoom}
-              className=" transition duration-300  w-60 h-12 my-2 border-none rounded-md p-1 text-base bg-blue-600 text-white cursor-pointer hover:bg-blue-700 transition duration-300"
+              className=" transition duration-300  w-60 h-12 my-2 border-none rounded-md p-1 text-base bg-blue-600 text-white cursor-pointer hover:bg-blue-700 transition duration-300 active:bg-blue-500"
             >
               Join A Room!
             </button>
