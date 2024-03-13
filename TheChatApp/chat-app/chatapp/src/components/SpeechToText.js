@@ -36,13 +36,13 @@ const SpeechToText = ({ onTranscript }) => {
 
   const toggleListening = () => {
     if (isListening) {
-      recognition.stop(); // This will eventually trigger onend
+      recognition.stop(); 
     } else {
       recognition.start(); // This will eventually trigger onstart
     }
   };
 
-  // Make sure to clean up on component unmount
+  
   useEffect(() => {
     return () => {
       recognition.stop(); // Ensure recognition stops when component unmounts

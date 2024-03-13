@@ -5,7 +5,6 @@ import SpeechToText from "./SpeechToText"; // Adjust the path as necessary
 
 import { MdDelete } from "react-icons/md";
 import { IoSend } from "react-icons/io5";
-import { FaMicrophone } from "react-icons/fa";
 
 function Chat({ socket, username, room, newRoom }) {
   const [currentMessage, setCurrentMessage] = useState("");
