@@ -31,12 +31,17 @@ function App() {
             setRoom={setRoom}
           />
         ) : (
-          <Chat
-            socket={socket}
-            username={username}
-            room={room}
-            newRoom={newRoom}
-          />
+          <>
+            <h3 className=" text-3xl mb-4 dark:text-white transition duration-300">
+              Quick Chat
+            </h3>
+            <Chat
+              socket={socket}
+              username={username}
+              room={room}
+              newRoom={newRoom}
+            />
+          </>
         )}
       </div>
     </div>
