@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import FileInputButton from "./FileInputButton";
 import SpeechToText from "./SpeechToText"; // Adjust the path as necessary
+import imageCompression from "browser-image-compression";
 
 import { MdDelete } from "react-icons/md";
 import { IoSend } from "react-icons/io5";
@@ -11,14 +12,25 @@ function Chat({ socket, username, room, newRoom }) {
   const [messageList, setMessageList] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setSelectedFile(reader.result); // Update selectedFile state with the file's data URL
-      };
-      reader.readAsDataURL(file);
+      try {
+        const options = {
+          maxSizeMB: 1, // Reduce image size to 1 MB
+          maxWidthOrHeight: 1024, // Scale image dimensions to 1024px
+          useWebWorker: true, // Use WebWorker for performance
+        };
+        const compressedFile = await imageCompression(file, options);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          console.log("Compressed file size:", compressedFile.size); // Log compressed size
+          setSelectedFile(reader.result); // Set the Base64 data of the compressed image
+        };
+        reader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.error("Error compressing image:", error);
+      }
     }
   };
 
